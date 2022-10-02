@@ -20,6 +20,14 @@
 
     npm install graphql graphql-request html-react-parser moment react-multi-carousel sass
 
+### Stack used :
+ - Nextjs 
+   - React
+   - GraphQL
+   - js,jsx
+
+ - Headless CMS Hygraph (Cloud database)
+
 
 ### Things done :
  - follow react tutos
@@ -31,8 +39,8 @@
 
 ### Todo for the next time:
  - complete tutorial
- - page to read full post
- - add commentary form
+   - page to read full posts
+   - add commentary form
  - add auto-mail function (or another backend function)
 
  ### What hasn't been done :
