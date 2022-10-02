@@ -1,0 +1,91 @@
+<canvas id="mycanvas">
+    <script>
+    
+    const canvas=document.getElementById("mycanvas");
+    const ctx = canvas.getContext("2d");
+    const gameSize={x:300,y:300}
+    canvas.width = gameSize.y;
+    canvas.height = gameSize.x;
+    
+    
+    // game state
+    
+    let gameState = {
+        player : {
+            x:(gameSize.x)/2,
+            y:gameSize.y-20,
+            w:10,
+            h:10,
+            speed:10,
+        },
+        bullets : []
+    }
+    
+    // Draw player
+    function drawPlayer() {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(gameState.player.x,gameState.player.y,gameState.player.h,gameState.player.w);
+    }
+    
+    function drawBullets() {
+        gameState.bullets.forEach(bullet =>{
+            ctx.fillStyle = 'red';
+            ctx.fillRect(bullet.x,bullet.y,gameState.player.h,gameState.player.w);
+        });
+    }
+     
+    //spawnBullet
+    function spawnBullet() {
+        gameState.bullets.push({x:gameState.player.x,y:gameState.player.y});}
+    
+    //move
+    function moveLeft() {
+    
+        gameState.player.x = (gameState.player.x - gameState.player.speed)%gameSize.x;
+    }
+    function moveRight() {
+        gameState.player.x = (gameState.player.x + gameState.player.speed)%gameSize.x;
+    }
+    //fire
+    //event listener
+    document.addEventListener("keydown",function(event){
+    
+        if(event.key === "ArrowLeft") {
+        
+        moveLeft();
+        }
+        if(event.key === "ArrowRight") {
+        moveRight();
+        }
+        if (event.key === " ") {
+        spawnBullet();
+        console.log(gameState.bullets)
+        }
+    
+        })
+    
+    //game loop
+    
+    function play() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,gameSize.x,gameSize.y);  
+    
+        //update game
+            //update bullets
+        gameState.bullets.forEach(bullet => {bullet.y-=10});
+       
+    
+        //Draw
+        drawPlayer();
+        drawBullets();
+    
+    
+    
+        requestAnimationFrame(play);
+    
+    }
+    
+    play();
+    
+    
+    </script>
