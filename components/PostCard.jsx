@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 
 const PostCard = ({post}) => {
-  console.log(post);
+  
   return (
     <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
       <div className='relative overflow-hidden shadow-md pb-80 mb-6'>
@@ -44,7 +44,7 @@ const PostCard = ({post}) => {
         </div>
       </div>
       <p className='text-gray-700 text-center mb-8 px-8 lg:px-20 text-lg '>{post.excerpt}</p>
-      <div class="text-center">
+      <div className="text-center">
         <Link href={`/post/${post.slug}`}>
           <span className="pointer-events-auto rounded-md bg-red-800 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-red-700">
             Continue Reading
