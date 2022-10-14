@@ -51,7 +51,6 @@ const PostDetail = ( {post} ) => {
           src={post.featureImage.url}
           alt={post.title}
           className='object-center object-cover absolute w-full h-full rounded-t-lg drop-shadow-lg'
-
         />
       </div>
   
@@ -64,9 +63,9 @@ const PostDetail = ( {post} ) => {
             width="30px"
             className='align-middle rounded-full'
           />
-          <p className='ml-2' >{post.author.name}</p>
+          <p className='ml-2' >{post.author.name} </p>
           </div>
-          <div className='flex items-center justify-end mb-4 lg:mb-0 w-full mr-8'>
+          <div className='flex items-center  justify-end mb-4 lg:mb-0 w-full mr-8'>
           <img 
             src="../calendar.png"
             alt=""
@@ -91,21 +90,15 @@ const PostDetail = ( {post} ) => {
             const children = typeObj.children.map((item, itemindex) => getContentFragment(itemindex, item.text, item));
 
             return getContentFragment(index, children, typeObj, typeObj.type);
-          })}</p>
-
-
-
-      <div className="text-center">
-        <Link href={`/post/${post.slug}`}>
-          <span className="pointer-events-auto rounded-md bg-red-800 py-2 px-3 text-[0.8125rem] font-semibold leading-5 text-white hover:bg-red-700 hover:-translate-y-1 inline-block transition">
-            Continue Reading
-          </span>
-        </Link>
-
+          })}
+      </p>
       </div>
+
+
+      
     </div>
 
-    </div>
+   
   )
 }
 
