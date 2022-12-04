@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 10438"
   },
   "dependencies": {
     "graphql": "^16.6.0",
