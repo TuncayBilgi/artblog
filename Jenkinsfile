@@ -25,8 +25,8 @@ pipeline {
                     git fetch --all
                    """
                 sh 'git checkout MyJenkins'
-                git config --global user.email "you@example.com"
-                git config --global user.name "Your Name"
+                sh 'git config --global user.email "you@example.com"'
+                sh 'git config --global user.name "Your Name"'
                 // Create a new file named "jenkins_log.txt"
                 sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
                 // Add the new file to the staging area
