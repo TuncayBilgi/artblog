@@ -31,6 +31,7 @@ pipeline {
                 sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
                 // Add the new file to the staging area
                 sh 'git add jenkins_log.txt'
+                sh 'git status'
                 // Commit the changes
                 sh 'git commit -m "Add jenkins_log.txt"'
                 // Push the changes to the "jenkins" branch
