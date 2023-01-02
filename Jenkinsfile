@@ -19,7 +19,7 @@ pipeline {
         stage('Push file') {
             steps {
                 // Check out the "jenkins" branch
-                sh 'echo | git branch'
+                sh 'git branch'
                 sh 'git checkout jenkins'
                 // Create a new file named "jenkins_log.txt"
                 sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
