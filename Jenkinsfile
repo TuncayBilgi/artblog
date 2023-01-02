@@ -34,7 +34,7 @@ pipeline {
                 // Commit the changes
                 sh 'git commit -m "Add jenkins_log.txt"'
                 // Push the changes to the "jenkins" branch
-                sh 'git push origin jenkins'
+                sh 'git push origin MyJenkins'
             }
         }
 
