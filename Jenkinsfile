@@ -20,6 +20,10 @@ pipeline {
             steps {
                 // Check out the "jenkins" branch
                 sh 'git checkout MyJenkins'
+                sh """
+                    git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+                    git fetch --all
+                   """
                 // Create a new file named "jenkins_log.txt"
                 sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
                 // Add the new file to the staging area
