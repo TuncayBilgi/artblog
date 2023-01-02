@@ -40,7 +40,7 @@ const PostCard = ({post}) => {
             className='align-middle  ml-8'
           />
           <span className='ml-2' >
-            {moment(post.createdAt).format('DD MMM YYYY')}
+            {/*moment(post.createdAt).format('DD MMM YYYY')*/}
           </span>
         </div>
       </div>
