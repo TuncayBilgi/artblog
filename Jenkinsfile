@@ -20,10 +20,10 @@ pipeline {
             steps {
                 // Check out the "jenkins" branch
                 
-                sh """
-                    git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-                    git fetch --all
-                   """
+               // sh """
+               //     git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+               //     git fetch --all
+               //    """
                 sh 'git checkout MyJenkins'
                 sh 'git config --global user.email "tuncay.bilgi39gmail.com"'
                 sh 'git config --global user.name "TuncayBilgi"'
