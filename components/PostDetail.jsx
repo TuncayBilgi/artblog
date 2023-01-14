@@ -74,7 +74,7 @@ const PostDetail = ( {post} ) => {
             className='align-middle  ml-8'
           />
           <span className='ml-2' >
-            {moment(post.createdAt).format('DD MMM YYYY')}
+            {/*moment(post.createdAt).format('DD MMM YYYY')*/}
           </span>
         </div>
         
@@ -85,13 +85,13 @@ const PostDetail = ( {post} ) => {
         {post.title}
         </Link>
       </h1>
-      <p className='text-gray-700 mb-8 px-8 lg:px-20 text-lg text-justify '>
+      <div className='text-gray-700 mb-8 px-8 lg:px-20 text-lg text-justify '>
       {post.content.raw.children.map((typeObj, index) => {
             const children = typeObj.children.map((item, itemindex) => getContentFragment(itemindex, item.text, item));
 
             return getContentFragment(index, children, typeObj, typeObj.type);
           })}
-      </p>
+      </div>
       </div>
 
 
