@@ -17,7 +17,7 @@
 
 # production
 /build
-publish.sh
+
 
 # misc
 .DS_Store
