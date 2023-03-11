@@ -1,45 +1,66 @@
-#!/usr/bin/env groovy
-
 pipeline {
-    agent any 
+    agent any
+
     stages {
-        stage('Stage 1') {
+        stage('Check for changes') {
             steps {
-                echo 'trying new pipelinde' 
+                script {
+                    // Récupère les changements depuis le dernier build
+                    sh 'git fetch origin'
+
+                    // Compare l'état de la branche principale avec celui du dernier build
+                    def changes = sh(
+                        script: 'git diff --name-only HEAD..origin/main',
+                        returnStdout: true
+                    ).trim()
+
+                    // Si des modifications ont été détectées, renvoie 0, sinon renvoie 1
+                    if (changes) {
+                        env.CHANGES = '0'
+                    } else {
+                        env.CHANGES = '1'
+                    }
+                }
             }
         }
 
-
-        stage('Check file') {
-            steps {
-                // Check if the file "jenkins-test.txt" exists in the "dev" branch
-                sh 'git ls-tree --full-tree -r HEAD --name-only | grep "jenkins-test.txt" || exit 1'
+        stage('Run tests') {
+            when {
+                expression { env.CHANGES == '0' }
             }
-        }
-        stage('Push file') {
             steps {
-                // Check out the "jenkins" branch
-                
-               // sh """
-               //     git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-               //     git fetch --all
-               //    """
-                sh 'git checkout MyJenkins'
-                sh 'git config --global user.email "tuncay.bilgi39gmail.com"'
-                sh 'git config --global user.name "TuncayBilgi"'
-                // Create a new file named "jenkins_log.txt"
-                sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
-                // Add the new file to the staging area
-                sh 'git add jenkins_log.txt'
-                sh 'ls'
-                // Commit the changes
-                //sh 'git commit -m "Add jenkins_log.txt"'
-                // Push the changes to the "jenkins" branch
-                sh 'git push origin MyJenkins'
+                // Exécute le script de test
+               // sh 'sh test.sh'
+               echo ' test.sh'
             }
         }
 
+        stage('Deploy') {
+            when {
+                expression { env.CHANGES == '0' }
+            }
+            steps {
+                // Exécute le script de déploiement
+                /* sshagent(['my-ssh-key']) {
+                    sh 'ssh user@server "cd path/to/project && git pull origin main && npm start"'
+                }*/
+                echo 'ssh action'
+            }
+        }
+
+        stage ('terminate') {
+            when {
+                expression {env.CHANGES == '1'}
+            }
+            steps {
+                echo 'no changes detected'
+            }
+            when {
+                expression {env.CHANGES == '0'}
+            }
+            steps {
+                echo 'chanbges detected and test + build ran'
+            }
+        }
     }
-
 }
-
