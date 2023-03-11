@@ -1,63 +1,48 @@
 pipeline {
     agent any
 
-    options {
-    skipDefaultCheckout()
-  }
-
     stages {
-        stage('Check for changes') {
+        stage('Check Deployed') {
             steps {
                 script {
-                    // Compare l'état de la branche principale avec celui du dernier build
-                    def changes = sh(
-                        script: 'git diff --name-only HEAD..origin/main',
-                        returnStdout: true
-                    ).trim()
+                    // Récupération du nom du dernier commit sur la branche 'main'
+                    def commitMessage = sh(script: 'git log -1 --pretty=%B origin/main', returnStdout: true).trim()
+                    echo "Last commit message: ${commitMessage}"
 
-                    // Si des modifications ont été détectées, renvoie 0, sinon renvoie 1
-                    if (changes) {
-                        env.CHANGES = '0'
+                    // Vérification si le commit contient '[deployed]'
+                    if (commitMessage.contains('[deployed]')) {
+                        echo "Deployed detected, skipping test and build steps."
+                        env.Deployed = 1
                     } else {
-                        env.CHANGES = '1'
+                        echo "No deployed detected, running test and build steps."
+                        env.Deployed = 0
                     }
-
-                    // Met à jour la branche locale avec la branche distante
-                    sh 'git pull origin main'
                 }
             }
         }
 
-        stage('Run tests') {
+        stage('Test') {
             when {
-                expression { env.CHANGES == '0' }
+                expression {
+                    env.Deployed == 0
+                }
             }
             steps {
-                // Exécute le script de test
-               // sh 'sh test.sh'
-               sh 'echo  test.sh'
+                // Ajouter les étapes pour les tests
             }
         }
 
-        stage('Deploy') {
+        stage('Build') {
             when {
-                expression { env.CHANGES == '0' }
+                expression {
+                    env.Deployed == 0
+                }
             }
             steps {
-                // Exécute le script de déploiement
-                /* sshagent(['my-ssh-key']) {
-                    sh 'ssh user@server "cd path/to/project && git pull origin main && npm start"'
-                }*/
-               sh 'echo "ssh action"'
-            }
-        }
-
-        stage ('terminate') {
-            when {
-                expression {env.CHANGES == '1'}
-            }
-            steps {
-                sh 'echo "no changes detected"'
+                // Ajouter les étapes pour la construction de l'application
+                // ...
+                // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
+                sh 'git commit -am "[deployed]"'
             }
         }
     }
