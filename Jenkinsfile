@@ -2,11 +2,8 @@ pipeline {
     agent any
 
     options {
-        gitOptions([
-            '--no-clone-bundle'
-        ])
-    }
-
+    skipDefaultCheckout()
+  }
 
     stages {
         stage('Check for changes') {
