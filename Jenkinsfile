@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        Deployed = 1
+    }
 
     stages {
         stage('Check Deployed') {
@@ -12,10 +15,10 @@ pipeline {
                     // Vérification si le commit contient '[deployed]'
                     if (commitMessage.contains('[deployed]')) {
                         echo "Deployed detected, skipping test and build steps."
-                        env.DEPLOYED = 1
+                        env.Deployed = 1
                     } else {
                         echo "No deployed detected, running test and build steps."
-                        env.DEPLOYED = 0
+                        env.Deployed = 0
                     }
                 }
             }
@@ -24,11 +27,10 @@ pipeline {
         stage('Test') {
             when {
                 expression {
-                    env.DEPLOYED == 0
+                    env.Deployed == 0
                 }
             }
             steps {
-                sh 'echo test'
                 // Ajouter les étapes pour les tests
             }
         }
@@ -36,15 +38,15 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    env.DEPLOYED == 0
+                    env.Deployed == 0
                 }
             }
             steps {
                 // Ajouter les étapes pour la construction de l'application
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
-               // sh 'git commit -am "[deployed]"'
-               sh 'echo "will commit"'
+                //sh 'git commit -am "[deployed]"'
+                sh 'echo "commit"'
             }
         }
     }
