@@ -4,7 +4,7 @@ pipeline {
         stage('Check Deployed') {
             steps {
                 script {
-                    sh 'git checkout main'
+                    //sh 'git checkout main'
                     // init
                     deployed = "true"
                    
