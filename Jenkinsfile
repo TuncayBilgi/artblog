@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    options {
+        gitOptions([
+            '--no-clone-bundle'
+        ])
+    }
+
+
     stages {
         stage('Check for changes') {
             steps {
