@@ -3,11 +3,9 @@ pipeline {
 
     stages {
         stage('Check for changes') {
+            stage('Check for changes') {
             steps {
                 script {
-                    // Récupère les changements depuis le dernier build
-                    sh 'git fetch origin'
-
                     // Compare l'état de la branche principale avec celui du dernier build
                     def changes = sh(
                         script: 'git diff --name-only HEAD..origin/main',
@@ -20,8 +18,12 @@ pipeline {
                     } else {
                         env.CHANGES = '1'
                     }
+
+                    // Met à jour la branche locale avec la branche distante
+                    sh 'git pull origin main'
                 }
             }
+        }
         }
 
         stage('Run tests') {
