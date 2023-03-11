@@ -4,6 +4,8 @@ pipeline {
         stage('Check Deployed') {
             steps {
                 script {
+                    Deployed = 0
+                    echo Deployed
                     // Récupération du nom du dernier commit sur la branche 'main'
                     def commitMessage = sh(script: 'git log -1 --pretty=%B origin/main', returnStdout: true).trim()
                     echo "Last commit message: ${commitMessage}"
