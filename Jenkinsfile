@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // Exécute le script de test
                // sh 'sh test.sh'
-               echo ' test.sh'
+               sh 'echo  test.sh'
             }
         }
 
@@ -44,7 +44,7 @@ pipeline {
                 /* sshagent(['my-ssh-key']) {
                     sh 'ssh user@server "cd path/to/project && git pull origin main && npm start"'
                 }*/
-                echo 'ssh action'
+               sh 'echo "ssh action"'
             }
         }
 
@@ -53,13 +53,7 @@ pipeline {
                 expression {env.CHANGES == '1'}
             }
             steps {
-                echo 'no changes detected'
-            }
-            when {
-                expression {env.CHANGES == '0'}
-            }
-            steps {
-                echo 'chanbges detected and test + build ran'
+                sh 'echo "no changes detected"'
             }
         }
     }
