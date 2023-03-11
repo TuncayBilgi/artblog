@@ -46,7 +46,7 @@ pipeline {
                 // Ajouter les étapes pour la construction de l'application
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
-                sh 'git commit --allow-empty -m "[deployed]"'
+                sh 'git commit -am "[deployed]"'
                 sh 'git push origin main'
             }
         }
