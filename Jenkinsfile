@@ -28,6 +28,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'echo test'
                 // Ajouter les étapes pour les tests
             }
         }
