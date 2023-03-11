@@ -47,7 +47,7 @@ pipeline {
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
                 sh 'git commit --allow-empty -m "[deployed]"'
-                sh 'git push'
+                sh 'git push origin main'
             }
         }
     }
