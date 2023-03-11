@@ -19,6 +19,7 @@ pipeline {
                     } else {
                         echo "No deployed detected, running test and build steps."
                         env.Deployed = 0
+                        echo env.Deployed
                     }
                 }
             }
