@@ -4,7 +4,7 @@ pipeline {
         stage('Check Deployed') {
             steps {
                 script {
-                    deployed = 0
+                    deployed = "true"
                     echo deployed
                     // Récupération du nom du dernier commit sur la branche 'main'
                     def commitMessage = sh(script: 'git log -1 --pretty=%B origin/main', returnStdout: true).trim()
@@ -13,10 +13,10 @@ pipeline {
                     // Vérification si le commit contient '[deployed]'
                     if (commitMessage.contains('[deployed]')) {
                         echo "deployed detected, skipping test and build steps."
-                        deployed = 1
+                        deployed = "true"
                     } else {
                         echo "No deployed detected, running test and build steps."
-                        deployed = 0
+                        deployed = "false"
                         echo deployed
                     }
                 }
@@ -26,7 +26,7 @@ pipeline {
         stage('Test') {
             when {
                 expression {
-                    deployed == 0
+                    deployed == "false"
                 }
             }
             steps {
@@ -38,7 +38,7 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    deployed == 0
+                    deployed == "false"
                 }
             }
             steps {
