@@ -7,6 +7,7 @@ pipeline {
                     //sh 'git checkout main'
                     // init
                     deployed = "true"
+                    ssh -T git@github.com
                    
                     // Récupération du nom du dernier commit sur la branche 'main'
                     def commitMessage = sh(script: 'git log -1 --pretty=%B origin/main', returnStdout: true).trim()
