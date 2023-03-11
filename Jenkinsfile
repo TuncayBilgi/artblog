@@ -3,7 +3,6 @@ pipeline {
 
     stages {
         stage('Check for changes') {
-            stage('Check for changes') {
             steps {
                 script {
                     // Compare l'état de la branche principale avec celui du dernier build
@@ -23,7 +22,6 @@ pipeline {
                     sh 'git pull origin main'
                 }
             }
-        }
         }
 
         stage('Run tests') {
