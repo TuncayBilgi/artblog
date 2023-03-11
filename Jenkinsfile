@@ -15,11 +15,11 @@ pipeline {
                     // Vérification si le commit contient '[deployed]'
                     if (commitMessage.contains('[deployed]')) {
                         echo "Deployed detected, skipping test and build steps."
-                        env.Deployed = 1
+                        Deployed = 1
                     } else {
                         echo "No deployed detected, running test and build steps."
-                        env.Deployed = 0
-                        echo env.Deployed
+                        Deployed = 0
+                        echo Deployed
                     }
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         stage('Test') {
             when {
                 expression {
-                    env.Deployed == 0
+                    Deployed == 0
                 }
             }
             steps {
@@ -40,7 +40,7 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    env.Deployed == 0
+                    Deployed == 0
                 }
             }
             steps {
