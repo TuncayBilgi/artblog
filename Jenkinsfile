@@ -4,8 +4,9 @@ pipeline {
         stage('Check Deployed') {
             steps {
                 script {
+                    // init
                     deployed = "true"
-                    echo deployed
+                   
                     // Récupération du nom du dernier commit sur la branche 'main'
                     def commitMessage = sh(script: 'git log -1 --pretty=%B origin/main', returnStdout: true).trim()
                     echo "Last commit message: ${commitMessage}"
@@ -45,8 +46,7 @@ pipeline {
                 // Ajouter les étapes pour la construction de l'application
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
-                //sh 'git commit -am "[deployed]"'
-                sh 'echo "commit"'
+                sh git commit --allow-empty -m "[deployed]"
             }
         }
     }
