@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        Deployed = 1
-    }
-
     stages {
         stage('Check Deployed') {
             steps {
