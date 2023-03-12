@@ -45,6 +45,9 @@ done
 
 cd /home/curcuma/node/artblog
 
+git pull origin main
+git commit --allow-empty -m "[deployed]"
+git push origin main
 
 session_status=$(tmux list-sessions | grep artblogDeamon)
 if [[ $session_status =~ "artblogDeamon" ]]; then
