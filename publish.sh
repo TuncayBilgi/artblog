@@ -19,6 +19,9 @@ function Build() {
   Error_Handler "npm install"
   echo "Building ..."
   Error_Handler "npm run build"
+  echo "Update repo..."
+  git commit --allow-empty -m "[deployed]"
+  Error_Handler "git push origin main"
   
 }
 
@@ -44,10 +47,6 @@ while getopts ":hb" opt; do
 done
 
 cd /home/curcuma/node/artblog
-
-git pull origin main
-git commit --allow-empty -m "[deployed]"
-git push origin main
 
 session_status=$(tmux list-sessions | grep artblogDeamon)
 if [[ $session_status =~ "artblogDeamon" ]]; then
