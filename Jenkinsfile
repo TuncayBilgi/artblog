@@ -47,6 +47,7 @@ pipeline {
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
                 sh 'echo "final steps"'
+                sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
             }
         }
     }
