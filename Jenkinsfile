@@ -47,6 +47,8 @@ pipeline {
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
                 sh 'echo "final steps"'
+                sshagent(credentials : ['a5924c01-d4f9-4494-9a63-8aa52623328c']) {
+                sh 'ssh -o StrictHostKeyChecking=no curcuma@ovh1.ec-m.fr uptime'
                 sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
             }
         }
