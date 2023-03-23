@@ -1,23 +1,27 @@
 pipeline {
+
+    environment {
+        DEPLOYED = 'true'
+        TESTPASSED = 'false'
+        BUILDED = 'false'
+        LASTCOMMIT
+    }
+
     agent any
     stages {
         stage('Check Deployed') {
             steps {
                 script {
-                    deployed = "true"
-                    test_passed = "false"
-                    builded = "false"
-
                     def lastDeployed = sh(script : 'tail -n 1 deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
                     
-                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
+                    env.LASTCOMMIT  = sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
                     echo 'lastCommit :'
-                    echo "${lastCommit}"
+                    echo "${env.LASTCOMMIT}"
 
-                    if (lastCommit.contains(lastDeployed)) {
+                    if (env.LASTCOMMIT.contains(lastDeployed)) {
                         echo 'the current main is already deployed'
                     }
                     else {
@@ -32,13 +36,13 @@ pipeline {
         stage('Test') {
             when {
                 expression {
-                    deployed == "false"
+                    env.DEPLOYED == "false"
                 }
             }
             steps {
                 sh 'echo "test"'
                 script {
-                    test_passed = "true"
+                    env.TESTPASSED = "true"
                 }
             }
         }
@@ -46,13 +50,13 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    test_passed == "true"
+                    env.TESTPASSED == "true"
                 }
             }
             steps {
                 echo 'build'
                 script {
-                    builded = "true"
+                    env.BUILDED = "true"
                 }
             }
         }
@@ -60,7 +64,7 @@ pipeline {
         stage('Log') {
             when {
                 expression {
-                    builded = "true"
+                    env.BUILDED == "true"
                 }
             }
             steps {
