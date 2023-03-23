@@ -76,8 +76,7 @@ pipeline {
                         echo 'the current main is not deployed'
                     }
                     echo 'lastcommit is'
-                    echo "${lastCommit}"
-                    //echo "${lastCommit}" >> tmp/deploy.log
+                    echo "${lastCommit}" >> /tmp/deploy.log
 
                 }
                 
