@@ -57,7 +57,25 @@ pipeline {
                     //sh 'git commit --allow-empty -m "[deployed]"'
                     //sh 'git push origin main'
                 //}
-                sh 'echo test > /tmp/test.log'
+                scripts : {
+                    deployed = true
+                    lastDeployed=$( tail -n 1 /tmp/deploy.log )
+
+                    
+
+                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main').trim()
+
+                    if (lastCommit.contains(lastDeployed)) {
+                        echo 'the current main is already deployed'
+                    }
+                    else {
+                        echo 'the current main is not deployed'
+                    }
+
+                    echo ${lastCommit} >> /tmp/deploy.log
+
+                }
+                
                 
             }
         }
