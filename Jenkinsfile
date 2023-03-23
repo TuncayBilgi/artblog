@@ -6,6 +6,7 @@ pipeline {
                 script {
                     deployed = "true"
                     test_passed = "false"
+                    builded = "false"
                     def lastDeployed = sh(script : 'tail -n 1 ./deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
