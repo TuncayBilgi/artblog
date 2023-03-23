@@ -51,15 +51,14 @@ pipeline {
                   //  sh 'ssh -o StrictHostKeyChecking=no curcuma@ovh1.ec-m.fr uptime'
                    // sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
                 //}
-                sshagent(credentials : ['b4bccb48-8de0-4d28-806e-573dc2067a47']) {
-                    //sh 'ssh -o StrictHostKeyChecking=no git@github.com uptime'
-                    //sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
-                    
-                    sh 'git remote rm origin'
-                    sh 'git remote add origin "git@github.com:TuncayBilgi/artblog.git"'
-                    sh 'git commit --allow-empty -m "[deployed]"'
-                    sh 'git push origin main'
-                }
+                //sshagent(credentials : ['b4bccb48-8de0-4d28-806e-573dc2067a47']) {          
+                    //sh 'git remote rm origin'
+                    //sh 'git remote add origin "git@github.com:TuncayBilgi/artblog.git"'
+                    //sh 'git commit --allow-empty -m "[deployed]"'
+                    //sh 'git push origin main'
+                //}
+                sh 'echo test > /tmp/test.log'
+                
             }
         }
     }
