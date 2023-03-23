@@ -57,9 +57,8 @@ pipeline {
                     //sh 'git commit --allow-empty -m "[deployed]"'
                     //sh 'git push origin main'
                 //}
-                scripts : {
-                    echo 'start'
-                    
+                scripts {
+        
                     def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log').trim()
 
                     
