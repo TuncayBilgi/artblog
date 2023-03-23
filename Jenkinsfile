@@ -58,6 +58,7 @@ pipeline {
                     //sh 'git push origin main'
                 //}
                 scripts : {
+                    echo 'start'
                     
                     def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log').trim()
 
