@@ -62,15 +62,12 @@ pipeline {
 
 
                     //echo "${deployLog}"
-                    def lastDeployed = sh(script : 'tail -n 1 /tmp/deploy.log', , returnStdout: true).trim()
+                    def lastDeployed = sh(script : 'tail -n 1 /tmp/deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
                     echo 'lastcommit'
-
-                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main')
-
-                    echo 'talere'
+                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
 
                     if (lastCommit.contains(lastDeployed)) {
                         echo 'the current main is already deployed'
