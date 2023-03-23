@@ -58,11 +58,11 @@ pipeline {
                     //sh 'git push origin main'
                 //}
                 script {
-                    def deployLog = readFile "/tmp/deploy.log"
+                    //def deployLog = readFile "/tmp/deploy.log"
 
 
-                    echo "${deployLog}"
-                    def lastDeployed= sh(script : 'tail -n 1 /tmp/deploy.log').trim()
+                    //echo "${deployLog}"
+                    def lastDeployed = sh(script : 'tail -n 1 /tmp/deploy.log', , returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
