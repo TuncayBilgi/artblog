@@ -60,12 +60,14 @@ pipeline {
                 script {
                     def deployLog = readFile "/tmp/deploy.log"
 
+
                     echo "${deployLog}"
-                    //def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log').trim()
+                    def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log')
+                    echo "${lastDeployed}"
 
                     echo 'lastcommit'
 
-                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main').trim()
+                    def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main')
 
                     echo 'talere'
 
