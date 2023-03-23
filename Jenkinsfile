@@ -62,7 +62,8 @@ pipeline {
 
 
                     echo "${deployLog}"
-                    def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log')
+                    def lastDeployed= sh(script : 'tail -n 1 /tmp/deploy.log').trim()
+                    echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
                     echo 'lastcommit'
