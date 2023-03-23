@@ -58,9 +58,6 @@ pipeline {
                     //sh 'git push origin main'
                 //}
                 script {
-                    
-                    //def deployLog = readFile "/tmp/deploy.log"
-                    
                     echo 'test' >> ./deploy.log
 
                     //echo "${deployLog}"
