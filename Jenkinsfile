@@ -68,8 +68,8 @@ pipeline {
             }
             steps {
                 echo 'Final step reached, updating log'
-                sh 'echo "${lastCommit}"'
-                sh ' echo "${lastCommit}" >> deploy.log '
+                sh '''echo "${lastCommit}"'''
+                sh ''' echo "${lastCommit}" >> deploy.log '''
 
             }
         }
