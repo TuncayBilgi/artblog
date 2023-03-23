@@ -7,12 +7,15 @@ pipeline {
                     deployed = "true"
                     test_passed = "false"
                     builded = "false"
+
                     def lastDeployed = sh(script : 'tail -n 1 ./deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
-                    echo 'lastcommit'
+                    
                     def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
+                    echo 'lastCommit :'
+                    echo "${lastCommit}"
 
                     if (lastCommit.contains(lastDeployed)) {
                         echo 'the current main is already deployed'
@@ -21,7 +24,6 @@ pipeline {
                         echo 'the current main is not deployed'
                         deployed = "false"
                     }
-                    echo "${lastCommit}"
                     
                 }
             }
