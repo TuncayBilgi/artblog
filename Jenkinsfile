@@ -4,7 +4,7 @@ pipeline {
         DEPLOYED = 'true'
         TESTPASSED = 'false'
         BUILDED = 'false'
-        LASTCOMMIT
+        LASTCOMMIT = ''
     }
 
     agent any
