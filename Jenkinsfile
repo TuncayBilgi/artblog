@@ -41,8 +41,7 @@ pipeline {
             steps {
                 sh 'echo "test"'
                 script {
-                    echo "${lastCommit}"
-                    test_passed = "true"
+                    testPassed = "true"
                 }
             }
         }
@@ -70,7 +69,6 @@ pipeline {
             steps {
                 echo 'Final step reached, updating log'
                 script {
-                    echo "${lastCommit}"
                     writeFile('deploy.log','testlog')
                     def test = readFile('deploy.log')
                     echo "${test}"
