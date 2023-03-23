@@ -79,7 +79,7 @@ pipeline {
                     echo "${lastCommit}"
 
                 }
-                sh 'echo "test2" >> ./deploy.log'
+                sh ''' echo "${lastCommit}" >> ./deploy.log '''
                 
             }
         }
