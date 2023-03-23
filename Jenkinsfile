@@ -59,7 +59,7 @@ pipeline {
                 //}
                 scripts : {
                     deployed = true
-                    lastDeployed=$( sh 'tail -n 1 /tmp/deploy.log' )
+                    lastDeployed= sh 'tail -n 1 /tmp/deploy.log' 
 
                     
 
