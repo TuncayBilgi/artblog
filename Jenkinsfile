@@ -62,7 +62,7 @@ pipeline {
 
 
                     //echo "${deployLog}"
-                    def lastDeployed = sh(script : 'tail -n 1 ./deploy.log',returnStdout: true).trim()
+                    def lastDeployed = sh(script : 'tail -n 1 /tmp/deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
@@ -76,7 +76,8 @@ pipeline {
                         echo 'the current main is not deployed'
                     }
 
-                    echo "${lastCommit}" >> ./deploy.log
+                    //echo "${lastCommit}" >> ./deploy.log
+                    echo "${lastCommit}"
 
                 }
                 
