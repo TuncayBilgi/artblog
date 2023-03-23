@@ -1,7 +1,7 @@
 def deployed = 'true'
-def test_passed = 'false'
+def testPassed = 'false'
 def builded = 'false'
-def lastcommit = ''
+def lastCommit = ''
 
 pipeline {
     agent any
@@ -41,6 +41,7 @@ pipeline {
             steps {
                 sh 'echo "test"'
                 script {
+                    echo "${lastCommit}"
                     test_passed = "true"
                 }
             }
@@ -49,7 +50,7 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    test_passed == "true"
+                    testPassed == "true"
                 }
             }
             steps {
