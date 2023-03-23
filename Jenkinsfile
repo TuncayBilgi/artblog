@@ -44,7 +44,7 @@ pipeline {
         stage('Build') {
             when {
                 expression {
-                    test_passed == true
+                    test_passed == "true"
                 }
             }
             steps {
