@@ -46,7 +46,7 @@ pipeline {
                 // Ajouter les étapes pour la construction de l'application
                 // ...
                 // Commit avec le message [deployed] pour indiquer que le déploiement a été effectué
-                sh 'echo "final steps"'
+                sh 'echo "test" > ./deploy.log'
                 //sshagent(credentials : ['a5924c01-d4f9-4494-9a63-8aa52623328c']) {
                   //  sh 'ssh -o StrictHostKeyChecking=no curcuma@ovh1.ec-m.fr uptime'
                    // sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
@@ -60,9 +60,9 @@ pipeline {
                 script {
                     //def deployLog = readFile "/tmp/deploy.log"
 
-                    echo "test" > ./deploy.log
+                   
                     //echo "${deployLog}"
-                    def lastDeployed = sh(script : 'tail -n 1 /tmp/deploy.log',returnStdout: true).trim()
+                    def lastDeployed = sh(script : 'tail -n 1 ./deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
@@ -80,7 +80,7 @@ pipeline {
                     echo "${lastCommit}"
 
                 }
-                
+                sh 'echo "test2" >> ./deploy.log'
                 
             }
         }
