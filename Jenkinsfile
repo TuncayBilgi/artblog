@@ -70,11 +70,10 @@ pipeline {
                 echo 'Final step reached, updating log'
                 script {
                     echo "${lastCommit}"
-                    echo "${lastCommit}" >> deploy.log
+                    writeFile('deploy.log','testlog')
+                    def test = readFile('deploy.log')
+                    echo "${test}"
                 }
-                sh '''echo "${lastCommit}"'''
-                sh ''' echo "${lastCommit}" >> deploy.log '''
-
             }
         }
     }
