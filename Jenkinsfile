@@ -1,3 +1,8 @@
+env.DEPLOYED = 'true'
+env.TESTPASSED = 'false'
+env.BUILDED = 'false'
+env.LASTCOMMIT = ''
+
 pipeline {
 
     agent any
@@ -6,10 +11,7 @@ pipeline {
             steps {
                 sh 'echo test > deploy.log'
                 script {
-                    env.DEPLOYED = 'true'
-                    env.TESTPASSED = 'false'
-                    env.BUILDED = 'false'
-                    env.LASTCOMMIT = ''
+                    
                     def lastDeployed = sh(script : 'tail -n 1 deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
