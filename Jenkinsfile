@@ -58,13 +58,15 @@ pipeline {
                     //sh 'git push origin main'
                 //}
                 scripts {
-        
+                    echo 'start'
                     def lastDeployed= sh (script : 'tail -n 1 /tmp/deploy.log').trim()
 
-                    
+                    echo 'lastcommit'
 
                     def lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main').trim()
 
+                    echo 'talere'
+                    
                     if (lastCommit.contains(lastDeployed)) {
                         echo 'the current main is already deployed'
                     }
