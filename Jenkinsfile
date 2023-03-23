@@ -18,7 +18,7 @@ pipeline {
                     echo "${lastDeployed}"
 
                     
-                    lastCommit= sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
+                    lastCommit= sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true).trim()
                     env.LASTCOMMIT = lastCommit
                     echo 'lastCommit :'
                     echo "${env.LASTCOMMIT}"
