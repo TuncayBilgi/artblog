@@ -69,8 +69,8 @@ pipeline {
             steps {
                 echo 'Final step reached, updating log'
                 script {
-                    writeFile('deploy.log','testlog')
-                    def test = readFile('deploy.log')
+                    writeFile(file :'deploy.log',text : 'testlog')
+                    def test = readFile(file :'deploy.log')
                     echo "${test}"
                 }
             }
