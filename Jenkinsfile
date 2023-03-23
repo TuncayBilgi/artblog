@@ -55,6 +55,8 @@ pipeline {
                     //sh 'ssh -o StrictHostKeyChecking=no git@github.com uptime'
                     //sh 'ssh curcuma@ovh1.ec-m.fr ./node/artblog/test.sh '
                     sh 'git commit --allow-empty -m "[deployed]"'
+                    sh 'git remote rm origin'
+                    sh 'git remote add origin "https://github.com/TuncayBilgi/artblog.git"'
                     sh 'git push origin main'
                 }
             }
