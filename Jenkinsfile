@@ -8,7 +8,7 @@ pipeline {
                     test_passed = "false"
                     builded = "false"
 
-                    def lastDeployed = sh(script : 'tail -n 1 ./deploy.log',returnStdout: true).trim()
+                    def lastDeployed = sh(script : 'tail -n 1 deploy.log',returnStdout: true).trim()
                     echo 'lastDeploy : '
                     echo "${lastDeployed}"
 
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 echo 'Final step reached, updating log'
                 sh 'echo "${lastCommit}"'
-                sh ' echo "${lastCommit}" >> ./deploy.log '
+                sh ' echo "${lastCommit}" >> deploy.log '
 
             }
         }
