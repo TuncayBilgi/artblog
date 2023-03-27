@@ -10,16 +10,16 @@ services:
     environment:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
 
-  nextjs:
-    build: .
-    command: npm run dev
-    volumes:
-      - .:/app
-      - /app/node_modules
-    ports:
-      - "3000:3000"
-    depends_on:
-      - jenkins
+  # nextjs:
+  #   build: .
+  #   command: npm run dev
+  #   volumes:
+  #     - .:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - jenkins
 
 volumes:
   jenkins_home:
