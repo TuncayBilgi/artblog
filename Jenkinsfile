@@ -52,7 +52,12 @@ pipeline {
                 }
             }
             steps {
-                echo 'build'
+                echo 'building ...'
+
+                sshagent(credentials : ['a5924c01-d4f9-4494-9a63-8aa52623328c']) {  
+                    sh "ssh curcuma@ovh1.ec-m.fr 'bash ./node/artblog/publish.sh -h' "      
+                }
+
                 script {
                     builded = "true"
                 }
