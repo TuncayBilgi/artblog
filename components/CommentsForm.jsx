@@ -49,7 +49,6 @@ const CommentsForm = ({slug}) => {
           setShowSuccessMessage('false');
         }, 3000);
       })
-
   };
 
   
@@ -100,7 +99,7 @@ const CommentsForm = ({slug}) => {
          >
         Submit
         </button>
-        {showSuccessMessage && <span className='text-xl float-right font-semibold mt-3 text-green-700'></span>}
+        {showSuccessMessage && <span className='text-xl float-right font-semibold mt-3 text-green-700'>Comment succesfully submited!</span>}
         </div>
     </div>
   )
