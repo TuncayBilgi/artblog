@@ -31,6 +31,22 @@ pipeline {
             }
         }
 
+        stage('Preparing working environment') {
+            when {
+                expression {
+                    deployed == "false"
+                }
+            }
+            steps {
+                echo 'Setup ...'
+                script {
+                    npm install
+                    npm run dev
+                    exit
+                }
+            }
+        }
+
         stage('Test') {
             when {
                 expression {
@@ -38,7 +54,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'echo "test"'
+                echo 'testing ...'
                 script {
                     testPassed = "true"
                 }
