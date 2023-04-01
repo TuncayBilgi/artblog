@@ -39,11 +39,8 @@ pipeline {
             }
             steps {
                 echo 'Setup ...'
-                script {
-                    npm install
-                    npm run dev
-                    exit
-                }
+                sh 'npm install'
+                sh 'npm run dev'
             }
         }
 
