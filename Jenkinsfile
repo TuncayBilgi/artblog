@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Check Deployed') {
             steps {
+                sh 'tail -n 1 deploy.log || echo "hash list:" >> deploy.log'
                 script {
                 
                     def lastDeployed = sh(script : 'tail -n 1 deploy.log',returnStdout: true).trim()

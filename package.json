@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "test" : "npx jest",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 10438"
