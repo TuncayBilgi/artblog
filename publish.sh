@@ -19,10 +19,6 @@ function Build() {
   Error_Handler "npm install"
   echo "Building ..."
   Error_Handler "npm run build"
-  echo "Update repo..."
-  git commit --allow-empty -m "[deployed]"
-  Error_Handler "git push origin main"
-  
 }
 
 
