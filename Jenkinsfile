@@ -58,12 +58,17 @@ pipeline {
                     //     sh 'npx jest'
                     // }
                     sh 'export NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT && export GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN'
-                    sh 'npx jest'
 
-                }
-                
-                script {
-                    testPassed = "true"
+                    script{
+                        def testStatus = sh(returnStatus: true, script: "npx jest")
+
+                        if (testStatus == 0) {
+                        env.testPassed = "true"
+                        } else {
+                        env.testPassed = "false"
+                        }
+                    }
+
                 }
             }
         }
