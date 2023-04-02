@@ -101,11 +101,11 @@ pipeline {
             steps {
                 echo 'Final step reached, updating log'
                 script {
-                    def test = readFile(file :'deploy.log')
-                    def newfile = test + "\n\r${lastCommit}"
+                    def deployLogs = readFile(file :'deploy.log')
+                    def newfile = deployLogs + "\n\r${lastCommit}"
                     writeFile(file :'deploy.log',text : "${newfile}")
-                    def test2 = readFile(file :'deploy.log')
-                    echo "${test2}"
+                    def newDeploysLogs = readFile(file :'deploy.log')
+                    echo "${newDeploysLogs}"
                 }
             }
         }
