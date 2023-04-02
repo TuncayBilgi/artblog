@@ -1,11 +1,8 @@
-FROM node:18-alpine
+FROM jenkins/jenkins:lts-alpine-jdk11
 
-WORKDIR /app
+USER root
 
-COPY package.json package-lock.json ./
+RUN apk update && apk add nodejs npm
+RUN apk add tmux
 
-RUN npm install
-
-COPY . .
-
-EXPOSE 3000
+USER jenkins

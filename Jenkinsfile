@@ -1,45 +1,98 @@
-#!/usr/bin/env groovy
+def deployed = 'true'
+def testPassed = 'false'
+def builded = 'false'
+def lastCommit = ''
 
 pipeline {
-    agent any 
+    agent any
     stages {
-        stage('Stage 1') {
+        stage('Check Deployed') {
             steps {
-                echo 'trying new pipelinde' 
-            }
-        }
-
-
-        stage('Check file') {
-            steps {
-                // Check if the file "jenkins-test.txt" exists in the "dev" branch
-                sh 'git ls-tree --full-tree -r HEAD --name-only | grep "jenkins-test.txt" || exit 1'
-            }
-        }
-        stage('Push file') {
-            steps {
-                // Check out the "jenkins" branch
+                script {
                 
-               // sh """
-               //     git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-               //     git fetch --all
-               //    """
-                sh 'git checkout MyJenkins'
-                sh 'git config --global user.email "tuncay.bilgi39gmail.com"'
-                sh 'git config --global user.name "TuncayBilgi"'
-                // Create a new file named "jenkins_log.txt"
-                sh 'echo "jenkins_log.txt created" > jenkins_log.txt'
-                // Add the new file to the staging area
-                sh 'git add jenkins_log.txt'
-                sh 'ls'
-                // Commit the changes
-                //sh 'git commit -m "Add jenkins_log.txt"'
-                // Push the changes to the "jenkins" branch
-                sh 'git push origin MyJenkins'
+                    def lastDeployed = sh(script : 'tail -n 1 deploy.log',returnStdout: true).trim()
+                    echo 'lastDeploy : '
+                    echo "${lastDeployed}"
+
+                    
+                    lastCommit  = sh( script : 'git log -1 --format=format:"%H" origin/main',returnStdout: true)
+                    echo 'lastCommit :'
+                    echo "${lastCommit}"
+
+                    if (lastCommit.contains(lastDeployed)) {
+                        echo 'the current main is already deployed'
+                    }
+                    else {
+                        echo 'the current main is not deployed'
+                        deployed = "false"
+                    }
+                    
+                }
             }
         }
 
+        stage('Preparing working environment') {
+            when {
+                expression {
+                    deployed == "false"
+                }
+            }
+            steps {
+                echo 'Setup ...'
+                sh 'npm install'
+                sh 'tmux new-session -d -s artblogDeamon "npm run dev"'
+            }
+        }
+
+        stage('Test') {
+            when {
+                expression {
+                    deployed == "false"
+                }
+            }
+            steps {
+                echo 'testing ...'
+                script {
+                    testPassed = "true"
+                }
+            }
+        }
+
+        stage('Build') {
+            when {
+                expression {
+                    testPassed == "true"
+                }
+            }
+            steps {
+                echo 'building ...'
+
+                sshagent(credentials : ['a5924c01-d4f9-4494-9a63-8aa52623328c']) {  
+                    sh "ssh curcuma@ovh1.ec-m.fr 'bash ./node/artblog/publish.sh -h' "      
+                }
+
+                script {
+                    builded = "true"
+                }
+            }
+        }
+
+        stage('Log') {
+            when {
+                expression {
+                    builded == "true"
+                }
+            }
+            steps {
+                echo 'Final step reached, updating log'
+                script {
+                    def test = readFile(file :'deploy.log')
+                    def newfile = test + "\n\r${lastCommit}"
+                    writeFile(file :'deploy.log',text : "${newfile}")
+                    def test2 = readFile(file :'deploy.log')
+                    echo "${test2}"
+                }
+            }
+        }
     }
-
 }
-
