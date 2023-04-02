@@ -63,9 +63,9 @@ pipeline {
                         def testStatus = sh(returnStatus: true, script: "npx jest")
 
                         if (testStatus == 0) {
-                        env.testPassed = "true"
+                        testPassed = "true"
                         } else {
-                        env.testPassed = "false"
+                        testPassed = "false"
                         }
                     }
 
