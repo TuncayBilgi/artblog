@@ -85,8 +85,8 @@ pipeline {
                 sshagent(credentials : ['a5924c01-d4f9-4494-9a63-8aa52623328c']) {  
                     script {
                         def buildStatus = sh(returnStatus: true, script: "ssh curcuma@ovh1.ec-m.fr 'bash ./node/artblog/publish.sh -b' ")
-                          if (buildStatus == 0) {
-                        builded = "true"
+                        if (buildStatus == 0) {
+                        builded = "false"
                         } else {
                         builded = "false"
                         }
