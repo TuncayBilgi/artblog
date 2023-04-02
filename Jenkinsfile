@@ -54,11 +54,11 @@ pipeline {
             steps {
                 echo 'testing ...'
                 withCredentials([string(credentialsId : 'f1db7dfd-4e52-4378-8078-c36639f8e1a3',variable:'GRAPHCMS_TOKEN'),string(credentialsId : '187cc787-35e8-4115-865e-62914fc14582',variable:'NEXT_PUBLIC_GRAPHCMS_ENDPOINT')]){
-                    withEnv(['NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT','GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN']){
-                        sh 'npx jest'
-                    }
-                    // sh 'export NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT && export GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN'
-                    // sh 'npx jest'
+                    // withEnv(['NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT','GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN']){
+                    //     sh 'npx jest'
+                    // }
+                    sh 'export NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT && export GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN'
+                    sh 'npx jest'
 
                 }
                 
