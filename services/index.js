@@ -126,6 +126,43 @@ export const getPosts = async () => {
         return result.post;
       };
 
+      export const getPostsByCat = async (slug_contains) => {
+        const query = gql`
+        query MyQuery($slug_contains: String!) {
+          postsConnection(where: {categories_some: {slug_contains: $slug_contains}}) {
+            edges {
+              node {
+                author {
+                  bio
+                  name
+                  id
+                  photo {
+                    url
+                  }
+                }
+                createdAt
+                excerpt
+                slug
+                title
+                featureImage {
+                  url
+                }
+                categories {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+        `
+        ;        
+      
+        const result = await request(graphqlAPI, query, { slug_contains });
+      
+        return result.postsConnection.edges;
+      };
+
       export const submitComment = async (obj) => {
         const result = await fetch('/api/comments', {
            method: 'POST',
