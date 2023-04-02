@@ -13,6 +13,7 @@ function Error_Handler() {
 
 
 function Build() {
+  cd /home/curcuma/node/artblog
   echo "Pulling from origin..."
   Error_Handler "git pull origin main"
   echo "Installing dependancies..."
