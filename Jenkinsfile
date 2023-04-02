@@ -58,7 +58,7 @@ pipeline {
                     //     sh 'npx jest'
                     // }
                     sh 'export NEXT_PUBLIC_GRAPHCMS_ENDPOINT=$NEXT_PUBLIC_GRAPHCMS_ENDPOINT && export GRAPHCMS_TOKEN=$GRAPHCMS_TOKEN'
-                    sh 'npx test'
+                    sh 'npx jest'
 
                 }
                 
