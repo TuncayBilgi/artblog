@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo 'Setup ...'
                 sh 'npm install'
-                sh 'npm run dev'
+                sh 'tmux new-session -d -s artblogDeamon "npm run dev"'
             }
         }
 
