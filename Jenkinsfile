@@ -86,7 +86,7 @@ pipeline {
                     script {
                         def buildStatus = sh(returnStatus: true, script: "ssh curcuma@ovh1.ec-m.fr 'bash ./node/artblog/publish.sh -b' ")
                         if (buildStatus == 0) {
-                        builded = "false"
+                        builded = "true"
                         } else {
                         builded = "false"
                         }
