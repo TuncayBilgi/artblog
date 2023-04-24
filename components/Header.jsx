@@ -8,7 +8,8 @@ const Header = () => {
     const [categories, setCategories] = useState([]);
     useEffect(() => {getCategories().then((result)=> setCategories(result))},[])
   return (
-    <div className='container mx-auto px-10 mb-4'>
+    <>
+    <div className='container mx-auto px-10 mb-4' id='header'>
         <div className=' border-black w-full inline-block py-6 border-b-2'>
             <div className='md:float-left block'>
                 <Link href="/">
@@ -28,6 +29,7 @@ const Header = () => {
             </div>
         </div>
     </div>
+    </>
 
   )
 }
