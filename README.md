@@ -10,7 +10,9 @@ This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](
  
     npm install
   
-and launch localy at localhost:3000 with :
+and launch locally at localhost:3000 with :
   
     npm run dev
-    chnges
+
+## Miscellaneous :
+This project uses HEadless CMS and might not run without it.
